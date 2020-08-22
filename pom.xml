@@ -5,17 +5,196 @@
   <artifactId>neurohitapi</artifactId>
   <packaging>war</packaging>
   <version>1.0</version>
-  <name>neurohitapi Maven Webapp</name>
+  <name>bhapirestv2</name>
   <url>http://maven.apache.org</url>
+  <repositories>
+	   	<repository>
+	      <id>jboss</id>
+	      <url>http://repository.jboss.org/maven2</url>
+	   	</repository>
+	</repositories>
+	 <properties>
+	   	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	        <java-version>1.8</java-version>
+	        <org.aspectj-version>1.8.1</org.aspectj-version>
+	        <org.slf4j-version>1.6.1</org.slf4j-version>
+	  </properties>	
   <dependencies>
+     <!-- core library -->
+	 <dependency>
+		<groupId>org.jboss.resteasy</groupId>
+		 <artifactId>resteasy-jaxrs</artifactId>
+		<version>3.0.2.Final</version>
+		<scope>provided</scope>
+	 </dependency>
+    <!-- JAXB support -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
+      <groupId>org.jboss.resteasy</groupId>
+      	<artifactId>resteasy-jaxb-provider</artifactId>
+      <version>3.0.2.Final</version>
+      <scope>provided</scope>
     </dependency>
+    <dependency>
+		<groupId>org.jboss.resteasy</groupId>
+		<artifactId>jaxrs-api</artifactId>
+		<version>3.0.2.Final</version>
+	</dependency>
+		
+<!-- https://mvnrepository.com/artifact/org.jboss/jandex -->
+<dependency>
+    <groupId>org.jboss</groupId>
+    <artifactId>jandex</artifactId>
+    <version>1.2.3.Final</version>
+</dependency>
+
+
+	
+
+  	<dependency>
+         <groupId>regexp</groupId>
+         <artifactId>regexp</artifactId>
+         <version>1.2</version>
+    </dependency>
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${org.slf4j-version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>jcl-over-slf4j</artifactId>
+        <version>${org.slf4j-version}</version>
+        <scope>runtime</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-log4j12</artifactId>
+        <version>${org.slf4j-version}</version>
+        <scope>runtime</scope>
+    </dependency>       
+       	
+    <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.16</version>
+    </dependency> 
+     <dependency>
+        <groupId>org.mybatis</groupId>
+        <artifactId>mybatis</artifactId>
+        <version>3.4.2</version>
+    </dependency>	
+	<!-- https://mvnrepository.com/artifact/com.sun.jna/jna -->
+	<dependency>
+	    <groupId>com.sun.jna</groupId>
+	    <artifactId>jna</artifactId>
+	    <version>3.0.9</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+	<dependency>
+	    <groupId>commons-fileupload</groupId>
+	    <artifactId>commons-fileupload</artifactId>
+	    <version>1.2</version>
+	    <scope>compile</scope>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+	<dependency>
+	    <groupId>commons-io</groupId>
+	    <artifactId>commons-io</artifactId>
+	    <version>2.5</version>
+            <scope>compile</scope>	    
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.imgscalr/imgscalr-lib -->
+	<dependency>
+	    <groupId>org.imgscalr</groupId>
+	    <artifactId>imgscalr-lib</artifactId>
+	    <version>4.2</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.json/json -->
+	<dependency>
+	    <groupId>org.json</groupId>
+	    <artifactId>json</artifactId>
+	    <version>20160810</version>
+	</dependency>
+
+    <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+	<dependency>
+	    <groupId>commons-codec</groupId>
+	    <artifactId>commons-codec</artifactId>
+	    <version>1.10</version>
+	</dependency>
+
+	<dependency>
+		<groupId>javax.mail</groupId>
+		<artifactId>mail</artifactId>
+		<version>1.4</version>
+	</dependency>
+	 
+	<dependency>
+		<groupId>javax.mail</groupId>
+		<artifactId>javax.mail-api</artifactId>
+		<version>1.5.5</version>
+	</dependency>   
+	
+	<dependency>
+	    <groupId>com.sun.mail</groupId>
+	    <artifactId>javax.mail</artifactId>
+	    <version>1.6.0</version>
+	</dependency>	
+	
+	<dependency>
+		<groupId>cl.effingo.services</groupId>
+		<artifactId>EffingoServices</artifactId>
+		<version>1.0-R1</version>
+		<type>jar</type>
+		<scope>compile</scope>
+	</dependency> 
+	
+    <dependency>
+        <groupId>javax.inject</groupId>
+        <artifactId>javax.inject</artifactId>
+        <version>1</version>
+    </dependency>                        
+     <dependency>
+         <groupId>javax.servlet.jsp</groupId>
+         <artifactId>jsp-api</artifactId>
+         <version>2.1</version>
+         <scope>provided</scope>
+     </dependency>
+    <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.4-20040521</version>
+            <type>jar</type>
+            <scope>provided</scope>
+    </dependency>
+
+     <dependency>
+         <groupId>javax.servlet.jsp.jstl</groupId>
+         <artifactId>jstl-api</artifactId>
+         <version>1.2</version>
+         <exclusions>
+             <exclusion>
+                 <groupId>javax.servlet</groupId>
+                 <artifactId>servlet-api</artifactId>
+             </exclusion>
+         </exclusions>
+     </dependency>	
+
+		
+
+		
   </dependencies>
   <build>
     <finalName>neurohitapi</finalName>
+     <plugins>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+              <source>1.8</source>
+              <target>1.8</target>
+            </configuration>
+        </plugin>
+ 	 </plugins>
   </build>
 </project>
