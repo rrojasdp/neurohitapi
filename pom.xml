@@ -5,7 +5,7 @@
   <artifactId>neurohitapi</artifactId>
   <packaging>war</packaging>
   <version>1.0</version>
-  <name>bhapirestv2</name>
+  <name>neurohitapi</name>
   <url>http://maven.apache.org</url>
   <repositories>
 	   	<repository>
@@ -47,6 +47,12 @@
     <version>1.2.3.Final</version>
 </dependency>
 
+	<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+	<dependency>
+	    <groupId>org.apache.httpcomponents</groupId>
+	    <artifactId>httpclient</artifactId>
+	    <version>4.3.6</version>
+	</dependency>
 
 	
 
