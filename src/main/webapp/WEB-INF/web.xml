@@ -15,13 +15,22 @@ PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
         <servlet-class>
             org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher
         </servlet-class>
-
     </servlet>
 
     <servlet-mapping>
         <servlet-name>resteasy-servlet</servlet-name>
-        <url-pattern>/v1/*</url-pattern>
+        <url-pattern>/*</url-pattern>
     </servlet-mapping>
 
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>resteasy-servlet</web-resource-name>
+            <url-pattern>/auth</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
     
 </web-app>

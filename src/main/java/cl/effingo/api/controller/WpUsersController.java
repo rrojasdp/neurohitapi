@@ -1,4 +1,6 @@
 package cl.effingo.api.controller;
+import java.io.UnsupportedEncodingException;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -20,22 +22,20 @@ import javax.ws.rs.core.MediaType;
 
 
 import cl.effingo.dao.*;
+import cl.effingo.model.AuthDTO;
 import cl.effingo.model.UserWP;
-import cl.effingo.api.model.WpUsers;
+import cl.effingo.services.WordPressAPI;
 import cl.effingo.utils.*;
 
 
 
-@Path("/v1/user")
+@Path("/")
 public class WpUsersController {
 
 	
 	Parametros par = new Parametros();
-	
 
-
-	
-	@Path("/regcode")
+	@Path("/v1/user/regcode")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -64,7 +64,7 @@ public class WpUsersController {
         }
     }
 	
-	@Path("/register")
+	@Path("/v1/user/register")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -94,65 +94,41 @@ public class WpUsersController {
         //Response.ResponseBuilder rb = Response.ok(jsonParser.JSONDataSingle(user,status,msg));
         return rb.build();
     }
-	 
-    
-	/*
-	@POST
-    @Path("/register")
-    @Produces("application/json")
-   
-
-    public Response register (@RequestBody WpUsers wpusers , @Context HttpRequest req){
- 		
-
-
-	    TokenKC kc = null;
-		try {
-			kc = new TokenKC(req);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			return SERVER_ERROR;
-		}
-	    
-	    
-	    
-        System.out.println("SRV(email):"+kc.getParameter("email"));
-        System.out.println("SRV(User):"+ kc.getParameter("preferred_username"));
-        System.out.println("SRV(resource_access):"+kc.getParameter("resource_access"));  	
-    	
-    	
-    	
-    	
-    	
-    	
-		System.out.println("ENTRANDO AL SERVICIO:");
-        DataService ds = new DataService(par.getEnviroment()); 
+	
+	
+	@Path("/v1/user/auth")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response authUser(AuthDTO user,@Context HttpRequest req) {
         String status="false";
         String msg="Error";
-        JSONUtil json= new JSONUtil();
-        TbTaVehiculo v = null;
-        try {
-        	v = ds.getCarById(vehiculeId);
-        	if (v==null){
-        		msg="Vehiculo no Existe";
-        	}
-        	else {
-        		status="true";
-        		msg="OK";
-        	}
-     	
-        }
-        catch (Exception e){
-        	msg="Error en Clase:" + this.getClass().getName() +", Metodo:" + this.getClass().getEnclosingMethod().getName();
-        }
-        finally {
-        	ds.close();
-        }
-        System.out.println("JSON:" +json.JSONDataSingle(v,status,msg));
-        Response.ResponseBuilder rb = Response.ok(json.JSONDataSingle(v,status,msg));
+    	DataService ds = new DataService(par.getEnviroment());
+    	JSONUtil jsonParser= new JSONUtil();
+    	cl.effingo.model.WpUsers users=new cl.effingo.model.WpUsers();
+    	WordPressAPI api = new WordPressAPI();
+    	try {
+    		System.out.println("email:" + user.getEmail()+ " password:" + user.getPassword());
+			api.auth(user.getEmail(), user.getPassword(), par.getParameter("uriWPAuth"));
+			status="true";
+			msg="OK";
+		} catch (UnsupportedEncodingException e) {
+    		status="false";
+    		msg=e.getMessage();   		
+    	}
+    	if (api.isAuthenticated()){
+    		users = ds.getUserById(api.getUserWP().getUserid());
+    		users.setToken(api.getToken());
+    	}
+    	else {
+    		status="false";
+    		msg=api.messageError;   		
+    	}
+    	
+    	ds.close();
+        Response.ResponseBuilder rb = Response.ok(jsonParser.JSONDataSingle(users,status,msg));
         return rb.build();
-	} 
-		*/
-	
+    }	
+	 
+
 }
